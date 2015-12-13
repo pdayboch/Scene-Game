@@ -20,6 +20,8 @@ class Engine
 			scene.enter()
 			scene.actions()
 			next_scene = scene.choice()
+			scene.export_decisions()
+			@Profile.get_decisions_map()
 		end
 
 		@Map_layout.get_scene(next_scene).enter()

@@ -1,11 +1,10 @@
 class Person
-	@Name
-	@Inventory
-	@Decision_map = []
+
 # Create the profile and set the users name
 # @param name [String] The user's name
 	def initialize(name)
 		@Name = name
+		@Decision_map = []
 	end
 # a method to grab the users name
 #	@return [String] The user's name
@@ -33,11 +32,24 @@ class Person
 
 # Logs the decisions a user makes throughout the game
 # @param decision [Array] An array of integers listing the decisions made throughout a Scene
-	def add_decision(decision)
-		@Decision_map.push(decision)
+	def add_decisions(decisions)
+		@Decision_map.push(decisions)
 	end
 
-	def get_decisions()
+	def get_decisions_map()
+		@Decision_map.each do |decisions|
+			print "["
+			decisions.each do |decision|
+				if decision == decisions.last
+					print "#{decision}"
+				else
+					print "#{decision}, "
+				end
+			end
+			print "]\n"
+		end
+
 		return @Decision_map
 	end
+
 end
