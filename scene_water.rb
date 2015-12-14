@@ -52,6 +52,8 @@ class Scene_water < Scene
 				return 'beach'
 			end
 		elsif num == 2
+			puts "You lay on your back and don't move a muscle. The shark approaches"
+			puts "but swims circles around you"
 			return 'death'
 		elsif num == 3
 			return 'death'

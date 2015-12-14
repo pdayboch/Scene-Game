@@ -5,21 +5,19 @@ class Person
 	def initialize(name)
 		@Name = name
 		@Decision_map = []
+		@Pocket = Inventory.new()
 	end
+
 # a method to grab the users name
 #	@return [String] The user's name
 	def get_name()
 		return @Name
 	end
 
-	def set_inventory(pocket)
-		@Inventory = pocket
-	end
-
 # asks the inventory to display and select an item
 # @return [String] A text description of the item selected to use
 	def use_item()
-		return @Inventory.use_item()
+		return @Pocket0.use_item()
 	end
 
 # Adds an items to the profiles inventory
@@ -27,7 +25,7 @@ class Person
 # @param desc [String] A text description of the item to be added
 	def add_item(qty, desc)
 		item = [qty, desc]
-		@Inventory.add(item)
+		@Pocket.add(item)
 	end
 
 # Logs the decisions a user makes throughout the game
@@ -37,17 +35,17 @@ class Person
 	end
 
 	def get_decisions_map()
-		@Decision_map.each do |decisions|
-			print "["
-			decisions.each do |decision|
-				if decision == decisions.last
-					print "#{decision}"
-				else
-					print "#{decision}, "
-				end
-			end
-			print "]\n"
-		end
+		#@Decision_map.each do |decisions|
+		# 	print "["
+		# 	decisions.each do |decision|
+		# 		if decision == decisions.last
+		# 			print "#{decision}"
+		# 		else
+		# 			print "#{decision}, "
+		# 		end
+		# 	end
+		# 	print "]\n"
+		# end
 
 		return @Decision_map
 	end

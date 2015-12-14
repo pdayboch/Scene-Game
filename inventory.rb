@@ -1,25 +1,46 @@
 class Inventory
-	@Items # an array of arrays of items. [qty, item]
-	
-	def initialize(start)
-		@Items = start
+
+	def initialize()
+			@Items = [] # an array of arrays of items. [qty, item]
 	end
-	
-	# displays available items in the inventory and asks which one to use.
-	# returns the item name of the item selected.
+
+	# Adds an item to the users inventory.
+	# @param item [Array] An array containing the quantity and text description of the item
+	def add(item)
+		@Items.push(item)
+	end
+
+# displays available items in the inventory and asks which one to use.
+# returns the item name of the item selected.
 	def use_item()
-		puts "Which item do you desire? Select the item number:"
+		puts "INVENTORY:"
+		puts "Which item do you desire? Select the item number:\n\n"
 		i = 1
+		puts "\tQTY\tItem"
 		@Items.each do |item|
+			qty = item[0]
 			desc = item[1]
-			puts "#{i}: #{desc}"
+			puts "#{i}:\t#{qty} x\t#{desc}"
 			i += 1
 		end
+		puts "Select N to not use anything and go back."
 		print "> "
-		item_num = $stdin.gets.chomp.to_i
-		
-		item_selected = @Items[item_num - 1][1]
-		
-		return item_selected
+		choice_num = $stdin.gets.chomp
+
+		if choice_num =~ /\d/ && choice_num.to_i <= @Items.count && choice_num.to_i > 0
+			item = @Items[choice_num.to_i-1]
+			if item[0] > 1
+				item[0] -= 1
+				item_desc = item[1]
+				return item_desc
+			else
+				return @Items.delete_at(choice_num.to_i-1)[1]
+			end
+		elsif choice_num.upcase == "N"
+			return nil
+		else
+			puts "Come on, enter a valid selection number!"
+			return use_item()
+		end
 	end
 end

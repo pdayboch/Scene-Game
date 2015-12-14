@@ -28,14 +28,13 @@ class Engine
 	end
 end
 
+# Create a new profile and add the start items to the inventory
 profile = Person.new("Phil")
-items = [[2,'Bottle of Rum'],
-		[1,'Tuna Head']
-		]
+profile.add_item(2, 'Bottle of Rum')
+profile.add_item(1, 'Tuna Head')
+profile.add_item(1, 'Bar(s) of Gold')
 
-pocket = Inventory.new(items)
-profile.set_inventory(pocket)
-
+# Create a new Map and build the engine.
 amap = Map.new('boat')
 engine = Engine.new(profile, amap)
 engine.play()
