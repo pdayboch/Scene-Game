@@ -1,6 +1,7 @@
 require "./scenes.rb"
 require "./scene_boat.rb"
 require "./scene_water.rb"
+require "./scene_beach.rb"
 
 class Map
 	@@Scenes = {

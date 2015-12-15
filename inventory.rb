@@ -43,4 +43,16 @@ class Inventory
 			return use_item()
 		end
 	end
+
+# check to see if the item is in inventory
+# @param item_search [String] the item to be searched for
+# @return [Boolean] if the item exists in inventory
+	def contains(item_search)
+		@Items.each do |item|
+			if item[1] == item_search
+				return true
+			end
+		end
+		return false
+	end
 end

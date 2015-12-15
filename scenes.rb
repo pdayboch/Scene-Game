@@ -15,6 +15,7 @@ class Scene
 			puts "#{i}: #{act}"
 			i += 1
 		end
+		print "> "
 	end
 
 	def export_decisions()
@@ -23,24 +24,6 @@ class Scene
 end
 
 
-
-
-class Scene_beach < Scene
-	def initialize()
-		super
-	end
-
-	def enter()
-		puts "beach"
-	end
-
-	def choice()
-		num = $stdin.gets.chomp.to_i
-		if num == 1
-			return 'village'
-		end
-	end
-end
 
 class Scene_village < Scene
 	def initialize()

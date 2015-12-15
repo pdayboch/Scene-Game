@@ -4,7 +4,6 @@ class Person
 # @param name [String] The user's name
 	def initialize(name)
 		@Name = name
-		@Decision_map = []
 		@Pocket = Inventory.new()
 	end
 
@@ -17,7 +16,7 @@ class Person
 # asks the inventory to display and select an item
 # @return [String] A text description of the item selected to use
 	def use_item()
-		return @Pocket0.use_item()
+		return @Pocket.use_item()
 	end
 
 # Adds an items to the profiles inventory
@@ -28,26 +27,7 @@ class Person
 		@Pocket.add(item)
 	end
 
-# Logs the decisions a user makes throughout the game
-# @param decision [Array] An array of integers listing the decisions made throughout a Scene
-	def add_decisions(decisions)
-		@Decision_map.push(decisions)
+	def has_item(item)
+		return @Pocket.contains(item)
 	end
-
-	def get_decisions_map()
-		#@Decision_map.each do |decisions|
-		# 	print "["
-		# 	decisions.each do |decision|
-		# 		if decision == decisions.last
-		# 			print "#{decision}"
-		# 		else
-		# 			print "#{decision}, "
-		# 		end
-		# 	end
-		# 	print "]\n"
-		# end
-
-		return @Decision_map
-	end
-
 end

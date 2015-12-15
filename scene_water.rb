@@ -20,8 +20,9 @@ class Scene_water < Scene
 
 	def choice()
 		num = $stdin.gets.chomp.to_i
+		puts "\n"
 		@Decisions.push(num)
-		if num == 1
+		if num == 1 # swim to shore
 			if(@shark)
 				puts "You start to kick your legs and move your arms in an attempt to"
 				puts "outswim the shark. Your pathetic attempt fails and the shark catches"
@@ -35,12 +36,12 @@ class Scene_water < Scene
 				puts "You turn around and see the shark starting to swim toward you."
 				puts "In order to remain calm to keep swiming, you decide to do math problems"
 				puts "in your head."
-				puts "\n Answer the following questions correctly to remain calm:"
+				puts "\nAnswer the following questions correctly to remain calm:"
 				i = 0
 				while i < 2
 					i += 1
-					num1 = rand(2..10)
-					num2 = rand(2..10)
+					num1 = rand(3..11)
+					num2 = rand(3..11)
 					puts "#{num1} x #{num2}?"
 					answer = $stdin.gets.chomp.to_i
 					if answer != num1*num2
@@ -51,13 +52,23 @@ class Scene_water < Scene
 				end
 				return 'beach'
 			end
-		elsif num == 2
+		elsif num == 2 # dont move, sit still.
 			puts "You lay on your back and don't move a muscle. The shark approaches"
-			puts "but swims circles around you"
+			puts "but swims circles around you."
+			puts "A one eyed pirate winds up his cross bow from the upper deck of the ship."
+			puts "He puts an arrow through your leg. The water runs red around your"
+			puts "body and draws the shark in closer from its scent."
+			puts "The shark finds the source of the blood and gobbles you whole like a"
+			puts "long awaited meal."
 			return 'death'
-		elsif num == 3
+		elsif num == 3 # drown yourself
+			puts "You head down to the bottom using the breast stroke while blowing all the air"
+			puts "out of your lungs. By the time your 50 feet deep, you change your mind and"
+			puts "decide to live. But it's already too late. On your way up you gasp for air"
+			puts "and feel a sharp pain in your lungs. You black out. By the way, the shark"
+			puts "eats you."
 			return 'death'
-		elsif num == 4
+		elsif num == 4 # use inventory
 			use_inventory()
 		else
 			puts "You entered an invalid option."
@@ -66,13 +77,17 @@ class Scene_water < Scene
 		end
 	end
 
+
 	def use_inventory()
 		item = @Profile.use_item()
+		puts "\n"
 		@Decisions.push(item)
 		if item == "Bottle of Rum"
-			puts ""
-			puts ""
-			return 'death'
+			puts "You unscrew the bottle and a wave knocks the bottle out of your hands."
+			puts "Sea water fills the bottle and it sinks down to the ocean floor."
+			puts "Well that was a waste. You feel terrible."
+			actions()
+			return choice()
 		elsif item == "Tuna Head"
 			@shark = false
 			puts "You reach into your pocket and feel the gooey eyeballs of the tuna head."
@@ -82,6 +97,9 @@ class Scene_water < Scene
 			puts "The shark, who is still approaching you, jolts to the left in pursuit"
 			puts "of the fish head. It bought you some time!"
 			actions()
+			return choice()
+		elsif item == nil
+			action()
 			return choice()
 		else
 			puts "That item cannot be used here. Why would you think that it can?"

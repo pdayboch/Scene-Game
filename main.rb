@@ -17,11 +17,10 @@ class Engine
 		while next_scene!='win' && next_scene != 'death'
 			scene = @Map_layout.get_scene(next_scene)
 			scene.set_profile(@Profile)
+			puts "\n"
 			scene.enter()
 			scene.actions()
 			next_scene = scene.choice()
-			scene.export_decisions()
-			@Profile.get_decisions_map()
 		end
 
 		@Map_layout.get_scene(next_scene).enter()
