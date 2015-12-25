@@ -2,11 +2,10 @@ class Scene
 
 	def initialize()
 		@actions = ["actions", "not", "configured"]
-		@Decisions =[]
 	end
 
 	def set_profile(profile)
-		@Profile = profile
+		@profile = profile
 	end
 
 	def actions()
@@ -18,65 +17,13 @@ class Scene
 		print "> "
 	end
 
-	def export_decisions()
-		@Profile.add_decisions(@Decisions)
-	end
-end
-
-
-
-class Scene_village < Scene
-	def initialize()
-		super
+	def add_action(action)
+		remove_action("Use inventory")
+		@actions.push(action)
+		@actions.push("Use inventory")
 	end
 
-	def enter()
-		puts "village"
-	end
-
-	def choice()
-		num = $stdin.gets.chomp.to_i
-		if num == 1
-			return 'jail'
-		end
-	end
-end
-
-class Scene_jail < Scene
-	def initialize()
-		super
-	end
-
-	def enter()
-		puts "jail"
-	end
-
-	def choice()
-		num = $stdin.gets.chomp.to_i
-		if num == 1
-			return 'win'
-		end
-	end
-end
-
-class Scene_win < Scene
-	def initialize()
-		super
-	end
-
-	def enter()
-		puts "win"
-		exit(1)
-	end
-end
-
-class Scene_death < Scene
-	def initialize()
-		super
-	end
-
-	def enter()
-		puts "You died. Please feel free to try again."
-		exit(1)
+	def remove_action(action)
+		@actions.delete(action)
 	end
 end

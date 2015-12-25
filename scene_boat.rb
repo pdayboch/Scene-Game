@@ -3,10 +3,7 @@ require "./scenes.rb"
 class Scene_boat < Scene
 	def initialize()
 		super
-		@actions = ['Jump into the water and swim away',
-					'Reach for your sword',
-					'Look in your inventory'
-					]
+		@actions = []
 	end
 
 	def enter()
@@ -16,6 +13,8 @@ class Scene_boat < Scene
 		puts "Before you can peak your head outside, a sword is at your throat."
 		puts "Pirates have taken over your ship and your whole crew is tied up."
 		puts "Your next move is more important than you think."
+		add_action('Jump into the water and swim away')
+		add_action('Reach for your sword')
 	end
 
 
@@ -44,7 +43,7 @@ class Scene_boat < Scene
 
 
 	def use_inventory()
-		item = @Profile.use_item()
+		item = @profile.use_item()
 		puts "\n"
 		if item == "Bottle of Rum"
 			puts "You happily mention there's a bottle of Captain under your bed."

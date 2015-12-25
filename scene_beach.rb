@@ -3,22 +3,10 @@ require "./scenes.rb"
 class Scene_beach < Scene
 	def initialize()
 		super
-		@actions = ['Dig up the hard object',
-								'Talk to the dwarfs',
-								'Get the wheel barrow',
-								'Look in your inventory'
-								]
-		@Gold_bars_available = 12
-		@Dwarfs = false
+		@actions = []
+		@gold_bars_available = 12
+		@dwarfs = false
 	end
-
-def add_action(action)
-	@actions.push(action)
-end
-
-def remove_action(action)
-	@actions.delete(action)
-end
 
 	def enter()
 		puts "You struggle to the beach and one last wave throws you down onto the sand."
@@ -28,6 +16,9 @@ end
 		puts "Underneath your ribs in the sand you feel a hard object pressing into"
 		puts "your chest. You stand up and brush the sand off your wet body."
 		puts "Please choose what you would like to do next."
+		add_action('Dig up the hard object')
+		add_action('Talk to the dwarfs')
+		add_action('Get the wheel barrow')
 	end
 
 	def choice()
@@ -37,7 +28,7 @@ end
 			puts "invalid choice!"
 			actions()
 			return choice()
-		elsif @Dwarfs && @actions[num-1] != "Look in your inventory"
+		elsif @dwarfs && @actions[num-1] != "Look in your inventory"
 			puts "As you try to walk away, the 7 dwarfs pick you up while chanting \"high ho\""
 			puts "and slowly carry you into the water. They hold you down until you take a"
 			puts "breath."
@@ -47,7 +38,7 @@ end
 		action_chosen = @actions[num-1]
 		if action_chosen == "Dig up the hard object"
 			puts "You bend over to scoop the sand away from the object."
-			puts "It's #{@Gold_bars_available} bars of Gold!"
+			puts "It's #{@gold_bars_available} bars of Gold!"
 			remove_action(action_chosen)
 			add_action("Take some gold!")
 			actions()
@@ -55,7 +46,7 @@ end
 		elsif action_chosen == "Take some gold!"
 			return take_gold()
 		elsif action_chosen == "Talk to the dwarfs"
-			@Dwarfs = true
+			@dwarfs = true
 			remove_action(action_chosen)
 			puts "You walk over to the group of 7 dwarfs who instantly surround you."
 			puts "They start chanting in an unknown language. They look angry."
@@ -63,30 +54,37 @@ end
 			return choice()
 		elsif action_chosen == "Get the wheel barrow"
 			remove_action(action_chosen)
-			@Profile.add_item(1, "Wheel barrow")
+			@profile.add_item(1, "Wheel barrow")
 			actions()
 			return choice()
-		elsif action_chosen == "Look in your inventory"
+		elsif action_chosen == "Use inventory"
 			return use_inventory()
 		else
 			puts "Invalid option."
 		end
 	end
 
+
 	def take_gold()
 		puts "Well just how many bars gold would you like to take?"
-		puts "[There are #{@Gold_bars_available} bars in the sand]"
+		puts "[There are #{@gold_bars_available} bars in the sand]"
 		print "> "
 		gold_wanted = $stdin.gets.chomp.to_i
 
-		if gold_wanted < 3 && !@Profile.has_item("Wheel barrow")
-			puts "You stuff two bars of gold into your pockets."
-			@Profile.add_item(gold_wanted, "Bar(s) of Gold")
+		if gold_wanted > @gold_bars_available
+			puts "There isn't even that much gold on the groud. Can't you count?"
+			actions()
+			return choice()
+		elsif gold_wanted < 3
+			puts "You stuff #{gold_wanted} bars of gold into your pockets."
+			@profile.add_item(gold_wanted, "Bar(s) of Gold")
 			remove_action("Take some gold!")
 			actions()
 			return choice()
-		if @Profile.has_item("Wheel barrow")
-			puts "You load up your wheel barrow with "
+		elsif @profile.has_item("Wheel barrow")
+			puts "You load up your wheel barrow with #{gold_wanted} bars of gold."
+			actions()
+			return choice()
 		else
 			puts "You dont have enough pockets to store all this gold."
 			puts "You will need something to carry it."
@@ -97,10 +95,10 @@ end
 
 
 	def use_inventory()
-		item = @Profile.use_item()
+		item = @profile.use_item()
 		puts "\n"
 		if item == "Bottle of Rum"
-			if @Dwarfs
+			if @dwarfs
 				puts "You offer the dwarfs your bottle of Rum. One of them mumbles and takes"
 				puts "the bottle. The dwarfs get drunk and throw rocks at you until you bleed"
 				puts "to death."
@@ -111,7 +109,7 @@ end
 				return 'death'
 			end
 		elsif item == "Bar(s) of Gold"
-			if @Dwarfs
+			if @dwarfs
 				puts "The dwarfs take your gold, tie it around your neck and throw you into"
 				puts "the water. You drown."
 				return 'death'

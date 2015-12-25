@@ -2,6 +2,10 @@ require "./scenes.rb"
 require "./scene_boat.rb"
 require "./scene_water.rb"
 require "./scene_beach.rb"
+require "./scene_village.rb"
+require "./scene_jail.rb"
+require "./scene_win.rb"
+require "./scene_death.rb"
 
 class Map
 	@@Scenes = {
@@ -15,11 +19,11 @@ class Map
 	}
 
 	def initialize(start_scene)
-		@Start_scene = start_scene
+		@start_scene = start_scene
 	end
 
 	def get_start()
-		return @Start_scene
+		return @start_scene
 	end
 
 	def get_scene(scene)

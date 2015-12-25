@@ -3,11 +3,7 @@ require "./scenes.rb"
 class Scene_water < Scene
 	def initialize()
 		super
-		@actions = ['Swim to the shore',
-					"Don't move a muscle and sit still, maybe the shark won't see you",
-					'Drown yourself',
-					'Look in your inventory'
-				]
+		@actions = []
 		@shark = true
 	end
 
@@ -16,12 +12,14 @@ class Scene_water < Scene
 		puts "The water is so cold it chills your bones and you feel stiff."
 		puts "You see a small fin off in the distance but it's getting bigger."
 		puts "Your next move must be made with survival on your mind."
+		add_action('Swim to the shore')
+		add_action("Don't move a muscle and sit still, maybe the shark won't see you")
+		add_action('Drown yourself')
 	end
 
 	def choice()
 		num = $stdin.gets.chomp.to_i
 		puts "\n"
-		@Decisions.push(num)
 		if num == 1 # swim to shore
 			if(@shark)
 				puts "You start to kick your legs and move your arms in an attempt to"
@@ -79,9 +77,8 @@ class Scene_water < Scene
 
 
 	def use_inventory()
-		item = @Profile.use_item()
+		item = @profile.use_item()
 		puts "\n"
-		@Decisions.push(item)
 		if item == "Bottle of Rum"
 			puts "You unscrew the bottle and a wave knocks the bottle out of your hands."
 			puts "Sea water fills the bottle and it sinks down to the ocean floor."

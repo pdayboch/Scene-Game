@@ -7,23 +7,23 @@ class Engine
 #	@param profile [Person] The users profile
 #	@param map [Map] The map object that contains all of the scenes.
 	def initialize(profile, map)
-		@Profile = profile
-		@Map_layout = map
+		@profile = profile
+		@map_layout = map
 		@Start_scene = map.get_start()
 	end
 
 	def play()
 		next_scene = @Start_scene
 		while next_scene!='win' && next_scene != 'death'
-			scene = @Map_layout.get_scene(next_scene)
-			scene.set_profile(@Profile)
+			scene = @map_layout.get_scene(next_scene)
+			scene.set_profile(@profile)
 			puts "\n"
 			scene.enter()
 			scene.actions()
 			next_scene = scene.choice()
 		end
 
-		@Map_layout.get_scene(next_scene).enter()
+		@map_layout.get_scene(next_scene).enter()
 	end
 end
 
